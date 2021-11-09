@@ -36,6 +36,28 @@ public  @ResponseBody String search(@RequestParam String topic) throws IOExcepti
     return stringBuffer.toString();
 }
 
+    @GetMapping("/info")
+    public  @ResponseBody String info(@RequestParam String id) throws IOException {
+        File file =new File("book.txt");
+        BufferedReader bufferedReader=new BufferedReader(new FileReader(file));
+        StringBuffer stringBuffer=new StringBuffer();
+        stringBuffer.append("{\"item_number\":\""+id+"\"");
+        String book; List<String> book1=new ArrayList<>();String oldcost; String Content="";
+        while ((book=bufferedReader.readLine())!=null){
+            book1=Arrays.asList(book.split(","));
+            if(book1.get(0).equals(id)){
+                stringBuffer.append("{\"title\":\""+book1.get(1)+"\",");
+                stringBuffer.append("\"items_in_stock\":\""+book1.get(3)+"\",");
+                stringBuffer.append("\"cost\":\""+book1.get(4)+"\"},");
+//            stringBuffer.append("\n");
+
+
+            }
+
+        }
+        return stringBuffer.toString();
+    }
+
     @GetMapping("/book1")
     public @ResponseBody String name(@RequestParam String id,@RequestParam String cost) throws IOException {
 
