@@ -2,6 +2,7 @@ package com.example.testdemo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,9 +28,6 @@ public  @ResponseBody String search(@RequestParam String topic) throws IOExcepti
         if(book1.get(2).equals(topic)){
             stringBuffer.append("{\"id\":\""+book1.get(0)+",\"");
             stringBuffer.append("\"title\":\""+book1.get(1)+"\"},");
-//            stringBuffer.append("\n");
-
-
         }
 
     }
@@ -37,7 +35,7 @@ public  @ResponseBody String search(@RequestParam String topic) throws IOExcepti
 }
 
     @GetMapping("/info")
-    public  @ResponseBody String info(@RequestParam String id) throws IOException {
+    public  @ResponseBody String info(@RequestParam int id) throws IOException {
         File file =new File("book.txt");
         BufferedReader bufferedReader=new BufferedReader(new FileReader(file));
         StringBuffer stringBuffer=new StringBuffer();
@@ -45,7 +43,7 @@ public  @ResponseBody String search(@RequestParam String topic) throws IOExcepti
         String book; List<String> book1=new ArrayList<>();String oldcost; String Content="";
         while ((book=bufferedReader.readLine())!=null){
             book1=Arrays.asList(book.split(","));
-            if(book1.get(0).equals(id)){
+            if(book1.get(0).equals(String.valueOf(id))){
                 stringBuffer.append("{\"title\":\""+book1.get(1)+"\",");
                 stringBuffer.append("\"items_in_stock\":\""+book1.get(3)+"\",");
                 stringBuffer.append("\"cost\":\""+book1.get(4)+"\"},");
@@ -58,30 +56,32 @@ public  @ResponseBody String search(@RequestParam String topic) throws IOExcepti
         return stringBuffer.toString();
     }
 
-    @GetMapping("/book1")
-    public @ResponseBody String name(@RequestParam String id,@RequestParam String cost) throws IOException {
+//    @GetMapping("/book1")
+//    public @ResponseBody String name(@RequestParam String id,@RequestParam String cost) throws IOException {
+//
+//        File file =new File("book.txt");
+//        BufferedReader bufferedReader=new BufferedReader(new FileReader(file));
+//        StringBuffer stringBuffer=new StringBuffer();
+//        String book; List<String> book1=new ArrayList<>();String oldcost; String Content="";
+//        while ((book=bufferedReader.readLine())!=null){
+//            book1=Arrays.asList(book.split(","));
+//            if(book1.get(0).equals(id)){
+//                oldcost=book1.get(4);
+//
+//               book= book.replace(oldcost,cost);
+//            }
+//            stringBuffer.append(book);
+//            stringBuffer.append("\n");
+//        }
+//        FileWriter fileWriter=new FileWriter(file);
+//        fileWriter.write(stringBuffer.toString());
+//        bufferedReader.close();
+//        fileWriter.close();
+//
+//
+////        book1= Arrays.asList(B.get(0).split(","));
+//        return stringBuffer.toString();
+//    }
 
-        File file =new File("book.txt");
-        BufferedReader bufferedReader=new BufferedReader(new FileReader(file));
-        StringBuffer stringBuffer=new StringBuffer();
-        String book; List<String> book1=new ArrayList<>();String oldcost; String Content="";
-        while ((book=bufferedReader.readLine())!=null){
-            book1=Arrays.asList(book.split(","));
-            if(book1.get(0).equals(id)){
-                oldcost=book1.get(4);
 
-               book= book.replace(oldcost,cost);
-            }
-            stringBuffer.append(book);
-            stringBuffer.append("\n");
-        }
-        FileWriter fileWriter=new FileWriter(file);
-        fileWriter.write(stringBuffer.toString());
-        bufferedReader.close();
-        fileWriter.close();
-
-
-//        book1= Arrays.asList(B.get(0).split(","));
-        return stringBuffer.toString();
-    }
 }
