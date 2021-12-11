@@ -16,13 +16,30 @@ public class Catalogservices {
          catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Control control =new Control();
+
 
         final String uri = "http://localhost:8098/search/"+topic;
         RestTemplate restTemplate=new RestTemplate();
         String r=restTemplate.getForObject(uri,String.class);
         return r;
-       // return control.search(topic);
+
+    }
+
+    @Cacheable("catalog")
+    public String info(int id){
+        try {
+            System.out.println("sleep for 5 secs");
+            Thread.sleep(1000*5);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        final String uri = "http://localhost:8098/info/"+id;
+        RestTemplate restTemplate=new RestTemplate();
+        String r=restTemplate.getForObject(uri,String.class);
+        return r;
     }
 
 

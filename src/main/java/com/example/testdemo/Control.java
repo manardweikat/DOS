@@ -22,6 +22,11 @@ public class Control {
         return catalogservices.search(topic);
     }
 
+    @GetMapping("/infobook/id/{id}")
+    public @ResponseBody String infobook(@PathVariable int id){
+        return catalogservices.info(id);
+    }
+
     @GetMapping("/search/topic/{top}")
     public @ResponseBody String search(@PathVariable String top){
         final String uri = "http://localhost:8098/search/"+top;
