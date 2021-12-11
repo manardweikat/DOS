@@ -14,25 +14,25 @@ import java.util.List;
 
 @Controller
 public class Catalog {
-
-
-@GetMapping("/search")
-public  @ResponseBody String search(@RequestParam String topic) throws IOException {
-    File file =new File("book.txt");
-    BufferedReader bufferedReader=new BufferedReader(new FileReader(file));
-    StringBuffer stringBuffer=new StringBuffer();
-    stringBuffer.append("{\"Topic\":\""+topic+"\"");
-    String book; List<String> book1=new ArrayList<>();String oldcost; String Content="";
-    while ((book=bufferedReader.readLine())!=null){
-        book1=Arrays.asList(book.split(","));
-        if(book1.get(2).equals(topic)){
-            stringBuffer.append("{\"id\":\""+book1.get(0)+",\"");
-            stringBuffer.append("\"title\":\""+book1.get(1)+"\"},");
-        }
-
-    }
-    return stringBuffer.toString();
-}
+//
+//
+//@GetMapping("/search")
+//public  @ResponseBody String search(@RequestParam String topic) throws IOException {
+//    File file =new File("book.txt");
+//    BufferedReader bufferedReader=new BufferedReader(new FileReader(file));
+//    StringBuffer stringBuffer=new StringBuffer();
+//    stringBuffer.append("{\"Topic\":\""+topic+"\"");
+//    String book; List<String> book1=new ArrayList<>();String oldcost; String Content="";
+//    while ((book=bufferedReader.readLine())!=null){
+//        book1=Arrays.asList(book.split(","));
+//        if(book1.get(2).equals(topic)){
+//            stringBuffer.append("{\"id\":\""+book1.get(0)+",\"");
+//            stringBuffer.append("\"title\":\""+book1.get(1)+"\"},");
+//        }
+//
+//    }
+//    return stringBuffer.toString();
+//}
 
     @GetMapping("/info")
     public  @ResponseBody String info(@RequestParam int id) throws IOException {
